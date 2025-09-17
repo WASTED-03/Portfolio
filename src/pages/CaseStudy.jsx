@@ -99,21 +99,37 @@ const CaseStudy = () => {
     const handleScroll = () => {
       const scrollY = window.scrollY
       setIsSticky(scrollY > 100)
-      
-      // Update active section based on scroll position
+
+      // Determine active section by choosing the visible section whose center
+      // is closest to an anchor line at ~35% of viewport height. This avoids
+      // lag where the previous section remains active when the next begins.
+      const anchorY = window.innerHeight * 0.35
+      let bestId = activeSection
+      let bestDist = Infinity
+
       sections.forEach(section => {
-        if (section.ref.current) {
-          const rect = section.ref.current.getBoundingClientRect()
-          if (rect.top <= 100 && rect.bottom >= 100) {
-            setActiveSection(section.id)
-          }
+        const node = section.ref.current
+        if (!node) return
+        const rect = node.getBoundingClientRect()
+        // Consider only sections that intersect the viewport at all
+        const isVisible = rect.bottom > 0 && rect.top < window.innerHeight
+        if (!isVisible) return
+        const center = rect.top + rect.height / 2
+        const dist = Math.abs(center - anchorY)
+        if (dist < bestDist) {
+          bestDist = dist
+          bestId = section.id
         }
       })
+
+      if (bestId !== activeSection) setActiveSection(bestId)
     }
 
     window.addEventListener('scroll', handleScroll)
+    // Run once on mount to set initial state correctly
+    handleScroll()
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  }, [activeSection, sections])
 
   const scrollToSection = (sectionId) => {
     const section = sections.find(s => s.id === sectionId)
@@ -123,12 +139,12 @@ const CaseStudy = () => {
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen">
       {/* Navigation */}
       <motion.nav
         className={`fixed top-0 left-0 right-0 z-30 transition-all duration-300 ${
           isSticky 
-            ? 'bg-white/95 backdrop-blur-md shadow-lg' 
+            ? 'bg-zinc-900/60 backdrop-blur-md shadow-[0_0_40px_rgba(0,0,0,0.4)]' 
             : 'bg-transparent'
         }`}
         initial={{ y: -100 }}
@@ -139,7 +155,7 @@ const CaseStudy = () => {
           <div className="flex items-center justify-between h-16">
             <motion.button
               onClick={() => navigate('/')}
-              className="flex items-center space-x-2 text-gray-700 hover:text-primary-600 transition-colors duration-300"
+              className="flex items-center space-x-2 text-zinc-300 hover:text-primary-300 transition-colors duration-300"
               whileHover={{ x: -5 }}
             >
               <ArrowLeft size={20} />
@@ -153,8 +169,8 @@ const CaseStudy = () => {
                   onClick={() => scrollToSection(section.id)}
                   className={`text-sm font-medium transition-colors duration-300 ${
                     activeSection === section.id
-                      ? 'text-primary-600'
-                      : 'text-gray-600 hover:text-primary-600'
+                      ? 'text-primary-300'
+                      : 'text-zinc-400 hover:text-primary-300'
                   }`}
                 >
                   {section.label}
@@ -167,15 +183,8 @@ const CaseStudy = () => {
 
       {/* Hero Section */}
       <section ref={heroRef} className="pt-16">
-        <div className="relative h-screen flex items-center justify-center overflow-hidden">
-          <div className="absolute inset-0">
-            <img
-              src={project.heroImage}
-              alt={project.title}
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-black/40" />
-          </div>
+        <div className="relative h-[60vh] sm:h-[70vh] lg:h-screen flex items-center justify-center overflow-hidden">
+          {/* Per-page hero image background removed to allow shared Three.js background to show */}
           
           <motion.div
             className="relative z-10 text-center text-white max-w-4xl mx-auto px-4"
@@ -219,7 +228,7 @@ const CaseStudy = () => {
       </section>
 
       {/* Overview Section */}
-      <section ref={overviewRef} className="py-20 bg-white">
+      <section ref={overviewRef} className="py-20">
         <div className="container-custom">
           <motion.div
             className="max-w-4xl mx-auto"
@@ -227,35 +236,35 @@ const CaseStudy = () => {
             animate={isOverviewInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-4xl font-display font-bold text-gray-800 mb-12 text-center">
+            <h2 className="text-4xl font-display font-bold text-zinc-100 mb-12 text-center">
               Project Overview
             </h2>
 
             <div className="grid md:grid-cols-2 gap-12 mb-16">
               <div>
-                <h3 className="text-2xl font-display font-semibold text-gray-800 mb-4">
+                <h3 className="text-2xl font-display font-semibold text-zinc-100 mb-4">
                   The Problem
                 </h3>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-zinc-400 leading-relaxed">
                   {project.overview.problem}
                 </p>
               </div>
               
               <div>
-                <h3 className="text-2xl font-display font-semibold text-gray-800 mb-4">
+                <h3 className="text-2xl font-display font-semibold text-zinc-100 mb-4">
                   The Solution
                 </h3>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-zinc-400 leading-relaxed">
                   {project.overview.solution}
                 </p>
               </div>
             </div>
 
-            <div className="bg-gray-50 rounded-2xl p-8">
-              <h3 className="text-2xl font-display font-semibold text-gray-800 mb-4">
+            <div className="bg-zinc-900/60 border border-zinc-800 rounded-2xl p-8">
+              <h3 className="text-2xl font-display font-semibold text-zinc-100 mb-4">
                 My Role
               </h3>
-              <p className="text-gray-600 leading-relaxed mb-6">
+              <p className="text-zinc-400 leading-relaxed mb-6">
                 {project.overview.role}
               </p>
               
@@ -263,7 +272,7 @@ const CaseStudy = () => {
                 {project.tags.map((tag, index) => (
                   <motion.span
                     key={tag}
-                    className="px-4 py-2 bg-primary-100 text-primary-600 rounded-full text-sm font-medium"
+                    className="px-4 py-2 bg-primary-500/10 text-primary-300 rounded-full text-sm font-medium"
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={isOverviewInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
                     transition={{ duration: 0.4, delay: 0.2 + index * 0.1 }}
@@ -278,7 +287,7 @@ const CaseStudy = () => {
       </section>
 
       {/* Process Section */}
-      <section ref={processRef} className="py-20 bg-gray-50">
+      <section ref={processRef} className="py-20">
         <div className="container-custom">
           <motion.div
             className="max-w-6xl mx-auto"
@@ -286,7 +295,7 @@ const CaseStudy = () => {
             animate={isProcessInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-4xl font-display font-bold text-gray-800 mb-12 text-center">
+            <h2 className="text-4xl font-display font-bold text-zinc-100 mb-12 text-center">
               Development Process
             </h2>
 
@@ -300,7 +309,7 @@ const CaseStudy = () => {
                   transition={{ duration: 0.6, delay: index * 0.2 }}
                 >
                   <div className={`flex-1 ${index % 2 === 1 ? 'lg:order-2' : ''}`}>
-                    <div className="bg-white rounded-2xl p-8 shadow-lg">
+                    <div className="bg-zinc-900/60 border border-zinc-800 rounded-2xl p-8 shadow-lg">
                       <div className="flex items-center justify-between mb-4">
                         <h3 className="text-2xl font-display font-semibold text-gray-800">
                           {phase.phase}
@@ -309,14 +318,14 @@ const CaseStudy = () => {
                           {phase.duration}
                         </span>
                       </div>
-                      <p className="text-gray-600 leading-relaxed mb-6">
+                      <p className="text-zinc-400 leading-relaxed mb-6">
                         {phase.description}
                       </p>
                       <div>
                         <h4 className="font-semibold text-gray-800 mb-3">Deliverables:</h4>
                         <ul className="space-y-2">
                           {phase.deliverables.map((deliverable, idx) => (
-                            <li key={idx} className="flex items-center space-x-2 text-gray-600">
+                            <li key={idx} className="flex items-center space-x-2 text-zinc-400">
                               <div className="w-2 h-2 bg-primary-600 rounded-full" />
                               <span>{deliverable}</span>
                             </li>
@@ -347,7 +356,7 @@ const CaseStudy = () => {
       </section>
 
       {/* Outcome Section */}
-      <section ref={outcomeRef} className="py-20 bg-white">
+      <section ref={outcomeRef} className="py-20">
         <div className="container-custom">
           <motion.div
             className="max-w-6xl mx-auto"
@@ -355,7 +364,7 @@ const CaseStudy = () => {
             animate={isOutcomeInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-4xl font-display font-bold text-gray-800 mb-12 text-center">
+            <h2 className="text-4xl font-display font-bold text-zinc-100 mb-12 text-center">
               Results & Impact
             </h2>
 
@@ -372,10 +381,10 @@ const CaseStudy = () => {
                   <div className="text-3xl font-display font-bold gradient-text mb-2">
                     {metric.value}
                   </div>
-                  <div className="text-lg font-semibold text-gray-800 mb-1">
+                  <div className="text-lg font-semibold text-zinc-100 mb-1">
                     {metric.label}
                   </div>
-                  <div className="text-sm text-gray-600">
+                  <div className="text-sm text-zinc-400">
                     {metric.description}
                   </div>
                 </motion.div>
@@ -385,7 +394,7 @@ const CaseStudy = () => {
             <div className="grid md:grid-cols-2 gap-12">
               {/* Challenges */}
               <div>
-                <h3 className="text-2xl font-display font-semibold text-gray-800 mb-6">
+                <h3 className="text-2xl font-display font-semibold text-zinc-100 mb-6">
                   Key Challenges
                 </h3>
                 <ul className="space-y-4">
@@ -398,7 +407,7 @@ const CaseStudy = () => {
                       transition={{ duration: 0.5, delay: 0.5 + index * 0.1 }}
                     >
                       <div className="w-2 h-2 bg-primary-600 rounded-full mt-2 flex-shrink-0" />
-                      <span className="text-gray-600">{challenge}</span>
+                      <span className="text-zinc-400">{challenge}</span>
                     </motion.li>
                   ))}
                 </ul>
@@ -406,7 +415,7 @@ const CaseStudy = () => {
 
               {/* Learnings */}
               <div>
-                <h3 className="text-2xl font-display font-semibold text-gray-800 mb-6">
+                <h3 className="text-2xl font-display font-semibold text-zinc-100 mb-6">
                   Key Learnings
                 </h3>
                 <ul className="space-y-4">
@@ -419,7 +428,7 @@ const CaseStudy = () => {
                       transition={{ duration: 0.5, delay: 0.7 + index * 0.1 }}
                     >
                       <div className="w-2 h-2 bg-accent-600 rounded-full mt-2 flex-shrink-0" />
-                      <span className="text-gray-600">{learning}</span>
+                      <span className="text-zinc-400">{learning}</span>
                     </motion.li>
                   ))}
                 </ul>

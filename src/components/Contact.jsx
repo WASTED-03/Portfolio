@@ -65,7 +65,7 @@ const Contact = () => {
   }
 
   return (
-    <section id="contact" ref={ref} className="section-padding bg-gray-50">
+    <section id="contact" ref={ref} className="section-padding">
       <div className="container-custom">
         <motion.div
           className="text-center mb-16"
@@ -73,10 +73,10 @@ const Contact = () => {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-4xl sm:text-5xl font-display font-bold text-gray-800 mb-6">
+          <h2 className="text-4xl sm:text-5xl font-display font-bold text-zinc-100 mb-6">
             Let's <span className="gradient-text">Connect</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-zinc-400 max-w-3xl mx-auto">
             Have a project in mind or just want to chat? I'd love to hear from you!
           </p>
         </motion.div>
@@ -88,7 +88,7 @@ const Contact = () => {
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <h3 className="text-3xl font-display font-semibold text-gray-800 mb-8">
+            <h3 className="text-3xl font-display font-semibold text-zinc-100 mb-8">
               Get In Touch
             </h3>
             
@@ -97,18 +97,18 @@ const Contact = () => {
                 <motion.a
                   key={info.label}
                   href={info.href}
-                  className="flex items-center space-x-4 p-4 bg-white rounded-xl hover:shadow-lg transition-all duration-300 group"
+                  className="flex items-center space-x-4 p-4 bg-zinc-900/60 border border-zinc-800 rounded-xl hover:shadow-[0_0_40px_rgba(56,189,248,0.15)] transition-all duration-300 group"
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                   transition={{ duration: 0.6, delay: 0.4 + index * 0.1 }}
                   whileHover={{ x: 10 }}
                 >
-                  <div className="p-3 bg-primary-100 rounded-lg group-hover:bg-primary-600 transition-colors duration-300">
-                    <info.icon className="w-6 h-6 text-primary-600 group-hover:text-white transition-colors duration-300" />
+                  <div className="p-3 bg-primary-500/10 rounded-lg group-hover:bg-primary-500/20 transition-colors duration-300">
+                    <info.icon className="w-6 h-6 text-primary-300 transition-colors duration-300" />
                   </div>
                   <div>
-                    <p className="text-sm text-gray-500 font-medium">{info.label}</p>
-                    <p className="text-gray-800 font-semibold group-hover:text-primary-600 transition-colors duration-300">
+                    <p className="text-sm text-zinc-500 font-medium">{info.label}</p>
+                    <p className="text-zinc-100 font-semibold group-hover:text-primary-300 transition-colors duration-300">
                       {info.value}
                     </p>
                   </div>
@@ -118,13 +118,13 @@ const Contact = () => {
 
             {/* Social Links */}
             <div>
-              <h4 className="text-lg font-semibold text-gray-800 mb-4">Follow Me</h4>
+              <h4 className="text-lg font-semibold text-zinc-100 mb-4">Follow Me</h4>
               <div className="flex space-x-4">
                 {socialLinks.map((social, index) => (
                   <motion.a
                     key={social.label}
                     href={social.href}
-                    className="p-3 bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 text-gray-600 hover:text-primary-600"
+                    className="p-3 bg-zinc-900/60 border border-zinc-800 rounded-lg shadow-sm hover:shadow-[0_0_30px_rgba(56,189,248,0.15)] transition-all duration-300 text-zinc-300 hover:text-primary-300"
                     initial={{ opacity: 0, scale: 0 }}
                     animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
                     transition={{ duration: 0.4, delay: 0.8 + index * 0.1 }}
@@ -151,7 +151,7 @@ const Contact = () => {
                   animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                   transition={{ duration: 0.6, delay: 0.6 }}
                 >
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label htmlFor="name" className="block text-sm font-medium text-zinc-300 mb-2">
                     Name *
                   </label>
                   <input
@@ -171,7 +171,7 @@ const Contact = () => {
                   animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                   transition={{ duration: 0.6, delay: 0.7 }}
                 >
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label htmlFor="email" className="block text-sm font-medium text-zinc-300 mb-2">
                     Email *
                   </label>
                   <input
@@ -192,7 +192,7 @@ const Contact = () => {
                 animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                 transition={{ duration: 0.6, delay: 0.8 }}
               >
-                <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="subject" className="block text-sm font-medium text-zinc-300 mb-2">
                   Subject *
                 </label>
                 <input
@@ -212,7 +212,7 @@ const Contact = () => {
                 animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                 transition={{ duration: 0.6, delay: 0.9 }}
               >
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="message" className="block text-sm font-medium text-zinc-300 mb-2">
                   Message *
                 </label>
                 <textarea

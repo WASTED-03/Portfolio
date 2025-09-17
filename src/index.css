@@ -10,14 +10,17 @@
   body {
     font-family: 'Inter', system-ui, sans-serif;
     line-height: 1.6;
-    color: #1a1a1a;
-    background-color: #ffffff;
+    color: #e5e7eb;
+    background: radial-gradient(1200px 800px at 10% -10%, #1a2230 0%, transparent 40%),
+                radial-gradient(1200px 800px at 110% 10%, #1b1f2b 0%, transparent 40%),
+                linear-gradient(180deg, #0b0e11 0%, #0f1318 100%);
   }
   
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Space Grotesk', system-ui, sans-serif;
     font-weight: 600;
     line-height: 1.2;
+    color: #f4f4f5;
   }
 }
 
@@ -35,19 +38,19 @@
   }
   
   .btn-primary {
-    @apply inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-all duration-300 transform hover:scale-105;
+    @apply inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-primary-600 hover:bg-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/60 transition-all duration-300 transform hover:scale-105 shadow-[0_0_20px_rgba(14,165,233,0.2)];
   }
   
   .btn-secondary {
-    @apply inline-flex items-center px-6 py-3 border border-gray-300 text-base font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-all duration-300 transform hover:scale-105;
+    @apply inline-flex items-center px-6 py-3 border border-zinc-700 text-base font-medium rounded-lg text-zinc-200 bg-zinc-900/60 hover:bg-zinc-800/60 focus:outline-none focus:ring-2 focus:ring-zinc-600 transition-all duration-300 transform hover:scale-105;
   }
   
   .card-hover {
-    @apply transition-all duration-300 transform hover:scale-105 hover:shadow-xl;
+    @apply transition-all duration-300 transform hover:scale-105 hover:shadow-[0_0_40px_rgba(56,189,248,0.15)] hover:ring-1 hover:ring-primary-500/30;
   }
   
   .input-field {
-    @apply block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 bg-white/80 backdrop-blur-sm;
+    @apply block w-full px-4 py-3 border border-zinc-700 rounded-lg focus:ring-2 focus:ring-primary-500/60 focus:border-transparent transition-all duration-300 bg-zinc-900/60 text-zinc-100 placeholder-zinc-400;
   }
 }
 
@@ -59,6 +62,16 @@
   .backdrop-blur-custom {
     backdrop-filter: blur(10px);
   }
+
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .animate-gradient {
+    animation: gradientShift 8s ease-in-out infinite;
+  }
 }
 
 /* Custom scrollbar */
@@ -67,19 +80,24 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: #0f1318;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #c1c1c1;
+  background: #2a2f3a;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #a8a8a8;
+  background: #3a4050;
 }
 
 /* Smooth transitions for all elements */
 * {
   transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hide default cursor on desktop devices (keep touch devices unaffected) */
+@media (hover: hover) and (pointer: fine) {
+  html, body, #root, * { cursor: none !important; }
 }

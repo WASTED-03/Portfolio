@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  darkMode: 'class',
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
@@ -11,6 +12,11 @@ export default {
         'display': ['Space Grotesk', 'system-ui', 'sans-serif'],
       },
       colors: {
+        background: {
+          900: '#0b0e11',
+          800: '#0f1318',
+          700: '#141922',
+        },
         primary: {
           50: '#f0f9ff',
           100: '#e0f2fe',

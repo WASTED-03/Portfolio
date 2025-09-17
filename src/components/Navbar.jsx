@@ -34,7 +34,7 @@ const Navbar = () => {
     <motion.nav
       className={`fixed top-0 left-0 right-0 z-30 transition-all duration-300 ${
         isScrolled 
-          ? 'bg-white/90 backdrop-blur-md shadow-lg' 
+          ? 'bg-zinc-900/60 backdrop-blur-md shadow-[0_0_40px_rgba(0,0,0,0.4)]' 
           : 'bg-transparent'
       }`}
       initial={{ y: -100 }}
@@ -45,7 +45,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <motion.div
-            className="text-2xl font-display font-bold"
+            className="text-2xl font-display font-bold text-zinc-100"
             whileHover={{ scale: 1.05 }}
           >
             <span className="gradient-text">Portfolio</span>
@@ -57,7 +57,7 @@ const Navbar = () => {
               <motion.button
                 key={item.name}
                 onClick={() => scrollToSection(item.href)}
-                className="text-gray-700 hover:text-primary-600 font-medium transition-colors duration-300 relative group"
+                className="text-zinc-300 hover:text-primary-400 font-medium transition-colors duration-300 relative group"
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1, duration: 0.5 }}
@@ -65,7 +65,7 @@ const Navbar = () => {
               >
                 {item.name}
                 <motion.div
-                  className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-600 group-hover:w-full transition-all duration-300"
+                  className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-400 group-hover:w-full transition-all duration-300 shadow-[0_0_12px_rgba(56,189,248,0.5)]"
                   initial={{ width: 0 }}
                   whileHover={{ width: '100%' }}
                 />
@@ -75,7 +75,7 @@ const Navbar = () => {
 
           {/* Mobile Menu Button */}
           <motion.button
-            className="md:hidden p-2"
+            className="md:hidden p-2 text-zinc-100"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             whileTap={{ scale: 0.95 }}
           >
@@ -94,7 +94,7 @@ const Navbar = () => {
               <motion.button
                 key={item.name}
                 onClick={() => scrollToSection(item.href)}
-                className="block w-full text-left text-gray-700 hover:text-primary-600 font-medium py-2 transition-colors duration-300"
+                className="block w-full text-left text-zinc-300 hover:text-primary-400 font-medium py-2 transition-colors duration-300"
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ 
                   opacity: isMobileMenuOpen ? 1 : 0, 
