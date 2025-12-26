@@ -18,9 +18,9 @@ export const Logo = (props: SVGProps) => {
       <Image
         src="/logolight.svg"
         alt="Logo"
-        width={585}
-        height={409}
-        className={props.className}
+        width={595}
+        height={419}
+        className={`${props.className} object-contain`}
         priority
       />
     )
