@@ -42,9 +42,6 @@ export function MyInformation() {
                         Arnav Ashok
                       </p>
                       <p className="relative z-20 text-sm sm:text-base text-neutral-500 font-medium uppercase">
-                        Digital Fortress Co., Ltd.
-                      </p>
-                      <p className="relative z-20 text-sm sm:text-base text-neutral-500 font-medium uppercase">
                         Java Backend Developer
                       </p>
 

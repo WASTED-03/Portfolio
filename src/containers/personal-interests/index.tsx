@@ -12,6 +12,14 @@ import { MediaPlayer } from "./media-player"
 import { StackCloud } from "./stack-cloud"
 import { BlurImage } from "@/components/ui/apple-cards-carousel"
 import { LEARNING_RESOURCES } from "@/data/learning-resource"
+import {
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer"
+import { TECH_STACK } from "@/data/tech-stack"
 
 export function PersonalInterests() {
   const [mounted, setMounted] = useState(false)
@@ -98,6 +106,27 @@ const SkeletonOne = () => {
     </motion.div>
   )
 }
+
+const slugToName: Record<string, string> = {
+  java: "Java",
+  springboot: "Spring Boot",
+  springsecurity: "Spring Security",
+  apachemaven: "Maven",
+  apachekafka: "Kafka",
+  amazonaws: "AWS",
+  docker: "Docker",
+  kubernetes: "Kubernetes",
+  postgresql: "PostgreSQL",
+  mysql: "MySQL",
+  mongodb: "MongoDB",
+  python: "Python",
+  fastapi: "FastAPI",
+  react: "React",
+  nodedotjs: "Node.js",
+  git: "Git",
+  linux: "Linux",
+}
+
 const SkeletonTwo = () => {
   return (
     <motion.div
@@ -106,12 +135,47 @@ const SkeletonTwo = () => {
       whileHover="hover"
       className="flex flex-1 w-full h-full min-h-[6rem] dark:bg-dot-white/[0.2] bg-dot-black/[0.2] flex-col space-y-2 "
     >
-      <div className="relative flex h-full w-full flex-col items-center justify-center">
-        <StackCloud />
-        <Pointer>
-          <div className="text-2xl">👆</div>
-        </Pointer>
-      </div>
+      <Drawer>
+        <DrawerTrigger asChild>
+          <div className="relative flex h-full w-full flex-col items-center justify-center cursor-pointer">
+            <StackCloud />
+            <Pointer>
+              <div className="text-2xl">👆</div>
+            </Pointer>
+          </div>
+        </DrawerTrigger>
+        <DrawerContent>
+          <DrawerHeader>
+            <DrawerTitle className="text-center text-2xl font-bold">
+              My Tech Stack
+            </DrawerTitle>
+          </DrawerHeader>
+          <div className="p-4 pb-8 overflow-y-auto max-h-[70vh]">
+            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-6 max-w-4xl mx-auto">
+              {TECH_STACK.map((tech) => (
+                <div key={tech} className="flex flex-col items-center gap-2">
+                  <div className="relative w-12 h-12">
+                    <img
+                      src={
+                        tech === "java"
+                          ? "/images/media/JAVALOGO.png"
+                          : tech === "amazonaws"
+                            ? "/images/media/AWSLOGO.webp"
+                            : `https://cdn.simpleicons.org/${tech}`
+                      }
+                      alt={tech}
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                  <span className="text-sm font-medium capitalize text-center">
+                    {slugToName[tech] || tech}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </DrawerContent>
+      </Drawer>
     </motion.div>
   )
 }
