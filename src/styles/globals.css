@@ -164,5 +164,15 @@
   }
   body {
     @apply bg-background text-foreground;
+    cursor: none;
+  }
+  
+  /* Restore cursor for excluded areas */
+  .no-custom-cursor, .no-custom-cursor * {
+    cursor: auto !important;
+  }
+  
+  .no-custom-cursor a, .no-custom-cursor button {
+    cursor: pointer !important;
   }
 }

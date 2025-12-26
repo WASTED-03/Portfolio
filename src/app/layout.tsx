@@ -1,4 +1,5 @@
 import { LayoutWithHeader } from "@/components/layout/layout-with-header"
+import { CustomCursor } from "@/components/ui/custom-cursor"
 import { ThemeProvider } from "@/components/theme-provider"
 import "@/styles/globals.css"
 import { Analytics } from "@vercel/analytics/next"
@@ -62,6 +63,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <LayoutWithHeader>{children}</LayoutWithHeader>
+          <CustomCursor />
         </ThemeProvider>
         <Analytics />
         <SpeedInsights />

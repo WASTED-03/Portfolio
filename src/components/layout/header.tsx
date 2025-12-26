@@ -99,7 +99,9 @@ export const Header = () => {
           )}
         >
           <div className="flex items-center gap-2">
-            <Logo className="size-14" />
+            <Link href="/">
+              <Logo className="size-14" />
+            </Link>
           </div>
           <div className="flex-1 items-center gap-3 justify-center hidden sm:flex">
             {links.map((link) => (

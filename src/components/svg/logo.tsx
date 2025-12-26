@@ -1,7 +1,31 @@
+"use client"
+
 import { SVGProps } from "@/types/global"
-import React from "react"
+import React, { useEffect, useState } from "react"
+import { useTheme } from "next-themes"
+import Image from "next/image"
 
 export const Logo = (props: SVGProps) => {
+  const { resolvedTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (mounted && resolvedTheme === "light") {
+    return (
+      <Image
+        src="/logolight.svg"
+        alt="Logo"
+        width={585}
+        height={409}
+        className={props.className}
+        priority
+      />
+    )
+  }
+
   return (
     <svg
       version="1.1"
