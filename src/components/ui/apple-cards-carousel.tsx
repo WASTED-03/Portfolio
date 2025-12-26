@@ -29,6 +29,7 @@ type Card = {
   category: string
   content?: React.ReactNode
   techStack?: string[]
+  link?: string
 }
 
 export const CarouselContext = createContext<{
@@ -237,6 +238,18 @@ export const Card = ({
                 {card.title}
               </motion.p>
               <div className="py-10">{card.content}</div>
+              {card.link && (
+                <div className="mt-4">
+                  <a
+                    href={card.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                  >
+                    View on GitHub
+                  </a>
+                </div>
+              )}
             </motion.div>
           </div>
         )}

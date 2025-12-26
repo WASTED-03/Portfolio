@@ -112,7 +112,7 @@ export const Header = () => {
           </div>
           <div className="flex items-center gap-2">
             <a
-              href={"https://github.com"}
+              href={"https://github.com/WASTED-03/Portfolio"}
               target="_blank"
               rel="noopener noreferrer"
               className="border p-2 rounded-2xl hover:bg-neutral-100 dark:hover:bg-neutral-900 transition-colors duration-300"
