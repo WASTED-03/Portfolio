@@ -1,15 +1,11 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { motion, useMotionValue, useSpring } from "framer-motion"
+import { motion, useMotionValue } from "framer-motion"
 
 export const CustomCursor = () => {
     const cursorX = useMotionValue(-100)
     const cursorY = useMotionValue(-100)
-
-    const springConfig = { damping: 25, stiffness: 700 }
-    const cursorXSpring = useSpring(cursorX, springConfig)
-    const cursorYSpring = useSpring(cursorY, springConfig)
 
     const [isVisible, setIsVisible] = useState(false)
     const [isExcluded, setIsExcluded] = useState(false)
@@ -61,15 +57,15 @@ export const CustomCursor = () => {
         <motion.div
             className="fixed top-0 left-0 w-8 h-8 rounded-full border-2 border-primary pointer-events-none z-[9999] mix-blend-difference bg-white"
             style={{
-                translateX: cursorXSpring,
-                translateY: cursorYSpring,
+                translateX: cursorX,
+                translateY: cursorY,
                 opacity: isExcluded ? 0 : 1, // Hide if excluded
             }}
             animate={{
                 scale: isClicking ? 0.8 : isHovering ? 1.5 : 1,
             }}
             transition={{
-                scale: { type: "spring", stiffness: 400, damping: 20 },
+                scale: { type: "tween", ease: "easeOut", duration: 0.2 },
             }}
         />
     )

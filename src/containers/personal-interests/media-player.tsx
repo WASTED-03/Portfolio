@@ -1,13 +1,23 @@
 "use client"
 
 import { useRef, useState } from "react"
-import { motion } from "framer-motion"
+import { motion, useMotionValue, useTransform } from "framer-motion"
 import { Pause, Play } from "lucide-react"
 import Image from "next/image"
 
 export const MediaPlayer = () => {
     const [isPlaying, setIsPlaying] = useState(false)
     const audioRef = useRef<HTMLAudioElement>(null)
+    const progress = useMotionValue(0)
+    const progressWidth = useTransform(progress, (v) => `${v}%`)
+
+    const [currentTime, setCurrentTime] = useState("0:00")
+
+    const formatTime = (time: number) => {
+        const minutes = Math.floor(time / 60)
+        const seconds = Math.floor(time % 60)
+        return `${minutes}:${seconds.toString().padStart(2, "0")}`
+    }
 
     const togglePlay = () => {
         if (audioRef.current) {
@@ -17,6 +27,15 @@ export const MediaPlayer = () => {
                 audioRef.current.play()
             }
             setIsPlaying(!isPlaying)
+        }
+    }
+
+    const handleTimeUpdate = () => {
+        if (audioRef.current) {
+            const current = audioRef.current.currentTime
+            const duration = audioRef.current.duration || 1
+            progress.set((current / duration) * 100)
+            setCurrentTime(formatTime(current))
         }
     }
 
@@ -72,14 +91,12 @@ export const MediaPlayer = () => {
                 <div className="w-full h-1 bg-white/20 rounded-full overflow-hidden">
                     <motion.div
                         className="h-full bg-white"
-                        initial={{ width: "0%" }}
-                        animate={{ width: isPlaying ? "100%" : "0%" }}
-                        transition={{ duration: 249, ease: "linear" }} // Approx duration of song
+                        style={{ width: progressWidth }}
                     />
                 </div>
 
                 <div className="flex items-center justify-between px-2">
-                    <div className="text-xs text-white/40 font-mono">0:00</div>
+                    <div className="text-xs text-white/40 font-mono">{currentTime}</div>
                     <button
                         onClick={togglePlay}
                         className="w-14 h-14 bg-white rounded-full flex items-center justify-center hover:scale-105 active:scale-95 transition-transform"
@@ -98,6 +115,7 @@ export const MediaPlayer = () => {
                 ref={audioRef}
                 src="/images/media/Narvent_-_Fainted_(mp3.pm).mp3"
                 onEnded={() => setIsPlaying(false)}
+                onTimeUpdate={handleTimeUpdate}
                 loop
             />
         </motion.div>
