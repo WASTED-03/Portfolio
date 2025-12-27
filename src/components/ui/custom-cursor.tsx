@@ -17,6 +17,11 @@ export const CustomCursor = () => {
     const [isClicking, setIsClicking] = useState(false)
 
     useEffect(() => {
+        // Hide cursor on touch devices
+        if (typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches) {
+            return
+        }
+
         const updateMousePosition = (e: MouseEvent) => {
             cursorX.set(e.clientX - 16)
             cursorY.set(e.clientY - 16)
