@@ -51,5 +51,4 @@ A modern, immersive developer portfolio built with Next.js 15, showcasing my jou
 
 ## � Acknowledgments
 
-- Original design inspiration and template by [kinhdev24](https://github.com/kinhdev24).
 - Built with [Next.js](https://nextjs.org/) and [Vercel](https://vercel.com).
