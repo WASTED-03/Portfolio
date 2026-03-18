@@ -10,7 +10,7 @@ import {
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useCallback, useEffect, useRef, useState } from "react"
-import { ModeToggle } from "../mode-toggle"
+
 import { Logo } from "../svg/logo"
 import { Button } from "../ui/button"
 import {
@@ -85,17 +85,14 @@ export const Header = () => {
   return (
     <>
       <header
-        className={cn(
-          "top-8 sm:top-10 z-50",
-          !isDisableHeaderScroll && "sticky"
-        )}
+        className="sticky top-0 z-50 w-full"
       >
         <div
           className={cn(
-            "mx-auto flex justify-between gap-10 items-center transition-all duration-300 p-4 z-50 ",
+            "mx-auto flex justify-between items-center z-50 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] w-full",
             isScrolled
-              ? "bg-white/80 backdrop-blur-md md:p-6 dark:bg-zinc-900/80 xl:w-[90%] shadow -translate-y-8 md:rounded-3xl"
-              : "bg-transparent w-full xl:w-[70%]"
+              ? "liquid-glass-heavy py-2 px-5 md:px-6 mt-3 max-w-[620px] gap-4 rounded-full"
+              : "liquid-glass p-4 max-w-[1100px] gap-10 rounded-2xl md:rounded-3xl mt-2"
           )}
         >
           <div className="flex items-center gap-2">
@@ -121,7 +118,6 @@ export const Header = () => {
             >
               <IconBrandGithub />
             </a>
-            <ModeToggle />
 
             <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
               <DrawerTrigger asChild>

@@ -113,7 +113,7 @@ export const MyUniverse = () => {
 
 export function CompareDemo() {
   return (
-    <div className="w-full border rounded-3xl dark:bg-neutral-900 bg-neutral-100 border-neutral-200 dark:border-neutral-800">
+    <div className="w-full rounded-3xl liquid-glass overflow-hidden border-0 p-1">
       <Compare
         firstImage="/images/media/media1.png"
         secondImage="/images/media/media2.png"

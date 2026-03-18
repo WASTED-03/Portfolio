@@ -18,7 +18,7 @@ export function MyInformation() {
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 w-full">
           <MyResume />
 
-          <div className="relative h-full rounded-2xl border p-2 md:rounded-3xl md:p-3 col-span-1 md:col-span-2 lg:col-span-3 order-1 md:order-2">
+          <div className="relative h-full rounded-2xl p-2 md:rounded-3xl md:p-3 col-span-1 md:col-span-2 lg:col-span-3 order-1 md:order-2 liquid-glass">
             <GlowingEffect
               blur={0}
               borderWidth={3}
@@ -112,7 +112,7 @@ const KeyAchievements = () => {
       key={currentTheme}
     >
       <motion.div
-        className="p-4 rounded-lg bg-gray-50 dark:bg-gray-700 flex flex-col items-center text-center cursor-pointer transition-colors duration-300"
+        className="p-4 rounded-lg liquid-glass flex flex-col items-center text-center cursor-pointer transition-colors duration-300"
         whileHover={{
           scale: 1.05,
           backgroundColor:
@@ -141,7 +141,7 @@ const KeyAchievements = () => {
       </motion.div>
 
       <motion.div
-        className="p-4 rounded-lg bg-gray-50 dark:bg-gray-700 flex flex-col items-center text-center cursor-pointer transition-colors duration-300"
+        className="p-4 rounded-lg liquid-glass flex flex-col items-center text-center cursor-pointer transition-colors duration-300"
         whileHover={{
           scale: 1.05,
           backgroundColor:
@@ -170,7 +170,7 @@ const KeyAchievements = () => {
       </motion.div>
 
       <motion.div
-        className="p-4 rounded-lg bg-gray-50 dark:bg-gray-700 flex flex-col items-center text-center cursor-pointer transition-colors duration-300"
+        className="p-4 rounded-lg liquid-glass flex flex-col items-center text-center cursor-pointer transition-colors duration-300"
         whileHover={{
           scale: 1.05,
           backgroundColor:
